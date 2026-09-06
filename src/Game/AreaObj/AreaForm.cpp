@@ -1,9 +1,5 @@
 #include "Game/AreaObj/AreaForm.hpp"
 #include "Game/Util.hpp"
-#include "JSystem/JGeometry/TMatrix.hpp"
-#include "JSystem/JGeometry/TVec.hpp"
-#include "JSystem/JMath/JMATrigonometric.hpp"
-#include "JSystem/JMath/JMath.hpp"
 
 AreaFormCube::AreaFormCube(int a1) {
     _4 = 0;
@@ -200,7 +196,7 @@ AreaFormCylinder::AreaFormCylinder() {
     mRotation.y = 0.0f;
     mRotation.z = 0.0f;
     mRadius = 0.0f;
-    _24 = 0.0f;
+    mHeight = 0.0f;
 }
 
 void AreaFormCylinder::calcPos(TVec3f* pPos) const {
@@ -216,7 +212,7 @@ void AreaFormCylinder::calcCenterPos(TVec3f* pCenterPos) const {
 
     TVec3f upVec;
     calcUpVec(&upVec);
-    pCenterPos->add(upVec * _24 * 0.5f);
+    pCenterPos->add(upVec * mHeight * 0.5f);
 }
 
 void AreaFormCylinder::calcUpVec(TVec3f* pUpVec) const {
@@ -241,7 +237,7 @@ bool AreaFormCylinder::isInVolume(const TVec3f& rVec) const {
 
     bool ret;
 
-    if (MR::isInRange(v6, 0.0f, _24) && (v7 < mRadius)) {
+    if (MR::isInRange(v6, 0.0f, mHeight) && (v7 < mRadius)) {
         ret = true;
     } else {
         ret = false;
@@ -298,6 +294,6 @@ void AreaFormCylinder::init(const JMapInfoIter& rIter) {
     mRadius *= 500.0f;
 
     rIter.getValue< f32 >("scale_y", &temp);
-    _24 = temp;
-    _24 *= 500.0f;
+    mHeight = temp;
+    mHeight *= 500.0f;
 }

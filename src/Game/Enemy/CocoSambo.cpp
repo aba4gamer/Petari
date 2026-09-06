@@ -1,6 +1,7 @@
 #include "Game/Enemy/CocoSambo.hpp"
 #include "Game/Enemy/AnimScaleController.hpp"
 #include "Game/Enemy/SamboFunction.hpp"
+#include "Game/LiveActor/HitSensor.hpp"
 #include "Game/LiveActor/Nerve.hpp"
 #include "Game/Util.hpp"
 
@@ -26,7 +27,7 @@ CocoSamboHead::CocoSamboHead(LiveActor* pHost) : PartsModel(pHost, "ココサン
 }
 
 void CocoSamboHead::init(const JMapInfoIter& rIter) {
-    TVec3f sensorOffs(cHeadSensorOffset);
+    TVec3f sensorOffs(::cHeadSensorOffset);
     sensorOffs.scale(mScale.x);
     initHitSensor(2);
     MR::addHitSensorAtJoint(this, "body", "Head", 37, 8, (100.0f * mScale.x), sensorOffs);
@@ -338,7 +339,7 @@ void CocoSambo::initMapToolInfo(const JMapInfoIter& rIter) {
 
 void CocoSambo::initSensor() {
     f32 f = mScale.x * 80.0f;
-    TVec3f offset(cSensorOffset);
+    TVec3f offset(::cSensorOffset);
     offset.scale(mScale.x);
     initHitSensor(3);
     MR::addHitSensorMtx(this, "spine1", ATYPE_SAMBO_BODY, 8, f, MR::getJointMtx(this, "Spine1"), offset);
@@ -440,7 +441,6 @@ void CocoSambo::exeWait() {
     }
     if (MR::isNearPlayer(this, 700.0f)) {
         setNerve(&NrvCocoSambo::CocoSamboNrvAttack::sInstance);
-        return;
     } else if (!MR::isNearPlayer(this, mPlayerSearchDistance + 100.0f)) {
         setNerve(&NrvCocoSambo::CocoSamboNrvHide::sInstance);
     }

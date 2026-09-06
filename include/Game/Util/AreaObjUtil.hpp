@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Game/AreaObj/AreaObjContainer.hpp"
 #include "Game/Map/LightZoneDataHolder.hpp"
 #include <JSystem/JGeometry/TBox.hpp>
 

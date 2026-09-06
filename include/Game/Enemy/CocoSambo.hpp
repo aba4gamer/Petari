@@ -1,9 +1,7 @@
 #pragma once
 
-#include "Game/LiveActor/HitSensor.hpp"
 #include "Game/LiveActor/PartsModel.hpp"
 
-class PartsModel;
 class AnimScaleParam;
 class AnimScaleController;
 

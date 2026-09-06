@@ -88,5 +88,5 @@ public:
     /* 0x08 */ TVec3f mTranslation;
     /* 0x14 */ TVec3f mRotation;
     /* 0x20 */ f32 mRadius;
-    /* 0x24 */ f32 _24;  // Maybe the height?
+    /* 0x24 */ f32 mHeight;
 };
