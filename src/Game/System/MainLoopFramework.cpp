@@ -82,6 +82,8 @@ void callDirectDraw() {
     JUTAssertion::flushMessage();
 }
 
+#pragma push
+#pragma global_optimizer off
 void MainLoopFramework::prepareCopyDisp() {
     u16 fbWidth = JUTVideo::getManager()->getRenderMode()->fbWidth;
     u16 efbHeight = JUTVideo::getManager()->getRenderMode()->efbHeight;
@@ -93,8 +95,9 @@ void MainLoopFramework::prepareCopyDisp() {
     GXSetDispCopyDst(fbWidth, nlines);
     GXSetDispCopyYScale(yscale);
     VIFlush();
-    GXSetCopyFilter(JUTVideo::getManager()->getRenderMode()->aa, JUTVideo::getManager()->getRenderMode()->sample_pattern, mUseVFilter,
-                    JUTVideo::getManager()->getRenderMode()->vfilter);
+    GXRenderModeObj* pMode = JUTVideo::getManager()->getRenderMode();
+    u8* pVFilter = pMode->vfilter;
+    GXSetCopyFilter(pMode->aa, pMode->sample_pattern, mUseVFilter, pVFilter);
     GXSetCopyClamp((GXFBClamp)mCopyClamp);
     GXSetDispCopyGamma((GXGamma)mDispCopyGamma);
     GXSetZMode(GX_TRUE, GX_LEQUAL, GX_TRUE);
@@ -102,6 +105,7 @@ void MainLoopFramework::prepareCopyDisp() {
         GXSetAlphaUpdate(GX_TRUE);
     }
 }
+#pragma pop
 
 void MainLoopFramework::drawendXfb_single() {
     JUTXfb* pXfbMgr = JUTXfb::sManager;
@@ -450,11 +454,10 @@ namespace {
 
     void waitDrawDoneAndSetAlarm() {
         MainLoopFrameworkAlarm alarm;
-        MR::BothDirLink< MainLoopFrameworkAlarm > link(&alarm);
         {
             MR::ProhibitSchedulerAndInterrupts prohibit(false);
             OSCreateAlarm(&alarm);
-            MainLoopFrameworkAlarm::sList.append(&link);
+            MainLoopFrameworkAlarm::sList.append(&alarm.mLink);
         }
         OSTime tick = __cvt_dbl_usll(OS_BUS_CLOCK / 4 * 0.5);
         OSSetAlarm(&alarm, tick, &handleGXAbortAlarm);
@@ -463,7 +466,7 @@ namespace {
         {
             MR::ProhibitSchedulerAndInterrupts prohibit(false);
             OSCancelAlarm(&alarm);
-            MainLoopFrameworkAlarm::sList.remove(&link);
+            MainLoopFrameworkAlarm::sList.remove(&alarm.mLink);
         }
     }
 

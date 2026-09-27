@@ -30,7 +30,7 @@ namespace {
     static const f32 sAirFrec = 0.99f;
     static const f32 sGroundFrec = 0.94999999f;
     static const s32 sFreezeFrame = 20;
-    static const f32 sFreezeRumbleSpeed = 0.75f;
+    static const f32 sFreezeRumbleSpeed = 75.0f;
     static const f32 sFreezeRumbleWidth = 5.0f;
     static const s32 sWallHitInvalidTime = 10;
 };  // namespace
@@ -258,22 +258,25 @@ void KoopaJrShipCannonShell::exeDown() {
         misfire();
 }
 
-// Functionally matching, but there's some stack issues and an instruction swap
+#pragma push
+#pragma global_optimizer off
 void KoopaJrShipCannonShell::exeFreeze() {
     if (MR::isFirstStep(this)) {
         mVelocity.zero();
-        if (!_B4)
+        if (!_B4) {
             MR::startDPDHitSound();
+        }
     }
+
     _B4++;
     MR::startDPDFreezeLevelSound(this);
-
+    TVec3f vec14;
     f32 scale = ::sFreezeRumbleWidth * MR::cosDegree(MR::repeatDegree(_B4 * ::sFreezeRumbleSpeed)) *
                 static_cast< f32 >(::sFreezeFrame - getNerveStep()) / ::sFreezeFrame;
-    TVec3f vec14;
+
     vec14.set(MR::getCamXdir());
     vec14.scale(scale);
-    _9C.add(mPosition, vec14);
+    editPosition()->add(_9C, vec14);
 
     if (MR::isStarPointerPointing2POnPressButton(this, "弱", true, false)) {
         setNerve(GET_NERVE(KoopaJrShipCannonShell, HostTypeFreeze));
@@ -286,6 +289,7 @@ void KoopaJrShipCannonShell::exeFreeze() {
         setNerve(GET_NERVE(KoopaJrShipCannonShell, HostTypeFly));
     }
 }
+#pragma pop
 
 namespace CannonShellUtil {
     void registerKoopaJrShipCannonShell(CannonShellHolder* pHolder, int shellNum) {

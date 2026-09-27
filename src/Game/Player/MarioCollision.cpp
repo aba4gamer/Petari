@@ -846,6 +846,9 @@ void Mario::checkAllWall(const TVec3f& rPosition, f32 radius) {
     }
 }
 
+#pragma push
+#pragma opt_propagation off
+#pragma opt_lifetimes off
 void Mario::calcFrontFloor() {
     Triangle wall;
     Triangle floor;
@@ -886,13 +889,13 @@ void Mario::calcFrontFloor() {
             start = wallPos - getAirGravityVec() * 200.0f;
             start += mFrontVec * 20.0f;
             direction = getAirGravityVec() * 210.0f;
-            bool floorHit = MR::getFirstPolyOnLineBFast(start, direction, &floorPos, &floor);
+            hit = MR::getFirstPolyOnLineBFast(start, direction, &floorPos, &floor);
 
-            if (floorHit && floor.getNormal(0)->dot(getAirGravityVec()) > -0.9f) {
-                floorHit = false;
+            if (hit && floor.getNormal(0)->dot(getAirGravityVec()) > -0.9f) {
+                hit = false;
             }
 
-            if (floorHit) {
+            if (hit) {
                 _4E0 = (wallPos - floorPos).dot(getAirGravityVec());
 
                 if (_4E0 > 0.0f) {
@@ -929,6 +932,7 @@ void Mario::calcFrontFloor() {
         mMovementStates._39 = false;
     }
 }
+#pragma pop
 
 const TVec3f& Mario::getWallNorm() const {
     if (mMovementStates._8) {
