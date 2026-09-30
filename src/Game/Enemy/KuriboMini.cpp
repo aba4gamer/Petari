@@ -93,9 +93,6 @@ KuriboMini::KuriboMini(const char* pName) : LiveActor(pName) {
     _B8.set(0.0f, 0.0f, 1.0f);
 }
 
-KuriboMini::~KuriboMini() {
-}
-
 void KuriboMini::init(const JMapInfoIter& rIter) {
     MR::initDefaultPos(this, rIter);
     initModelManagerWithAnm("KuriboMini", nullptr, false);
@@ -123,7 +120,7 @@ void KuriboMini::init(const JMapInfoIter& rIter) {
     MR::useStageSwitchWriteDead(this, rIter);
     MR::useStageSwitchSleep(this, rIter);
     if (MR::useStageSwitchReadB(this, rIter)) {
-        MR::listenStageSwitchOnB(this, MR::Functor(this, &KuriboMini::calcPassiveMovement));
+        MR::listenStageSwitchOnB(this, MR::Functor< KuriboMini >(this, &KuriboMini::makeActorDead));
     }
 
     if (MR::useStageSwitchReadAppear(this, rIter)) {

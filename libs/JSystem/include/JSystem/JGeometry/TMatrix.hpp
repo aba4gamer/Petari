@@ -231,16 +231,19 @@ namespace JGeometry {
             f32 scale = TUtil< f32 >::invert(determinant);
 
             TVec3f translation;
-            translation.set(rSrc(0, 3), rSrc(1, 3), rSrc(2, 3));
+            translation.x = rSrc(0, 3);
             translation.x = -translation.x;
-            translation.y = -translation.y;
-            translation.z = -translation.z;
 
             inverse.set(scale * (rSrc(1, 1) * rSrc(2, 2) - rSrc(1, 2) * rSrc(2, 1)), scale * -(rSrc(0, 1) * rSrc(2, 2) - rSrc(0, 2) * rSrc(2, 1)),
                         scale * (rSrc(0, 1) * rSrc(1, 2) - rSrc(0, 2) * rSrc(1, 1)), scale * -(rSrc(1, 0) * rSrc(2, 2) - rSrc(1, 2) * rSrc(2, 0)),
                         scale * (rSrc(0, 0) * rSrc(2, 2) - rSrc(0, 2) * rSrc(2, 0)), scale * -(rSrc(0, 0) * rSrc(1, 2) - rSrc(0, 2) * rSrc(1, 0)),
                         scale * (rSrc(1, 0) * rSrc(2, 1) - rSrc(1, 1) * rSrc(2, 0)), scale * -(rSrc(0, 0) * rSrc(2, 1) - rSrc(0, 1) * rSrc(2, 0)),
                         scale * (rSrc(0, 0) * rSrc(1, 1) - rSrc(0, 1) * rSrc(1, 0)));
+
+            translation.y = rSrc(1, 3);
+            translation.y = -translation.y;
+            translation.z = rSrc(2, 3);
+            translation.z = -translation.z;
 
             translation.set< f32 >(translation.x * inverse.mMtx[0][0] + translation.y * inverse.mMtx[1][0] + translation.z * inverse.mMtx[2][0],
                                    translation.x * inverse.mMtx[0][1] + translation.y * inverse.mMtx[1][1] + translation.z * inverse.mMtx[2][1],
@@ -905,10 +908,11 @@ namespace JGeometry {
             setTrans(rSrcTrans);
         }
 
-        void setRT(f32 rx, f32 ry, f32 rz, const TVec3f& rSrcTrans) {
-            // nonmatching, see
-            // see Mogucchi::updateReferenceMtx
+        void setRT(const TVec3f& rRot, const TVec3f& rSrcTrans) {
+            setRT(rRot.x, rRot.y, rRot.z, rSrcTrans);
+        }
 
+        void setRT(f32 rx, f32 ry, f32 rz, const TVec3f& rSrcTrans) {
             f32 sinX, sinY, sinZ;
             f32 cosX, cosY, cosZ;
 
@@ -919,13 +923,9 @@ namespace JGeometry {
             sinY = SIN(ry);
             sinX = SIN(rx);
 
-            this->mMtx[0][3] = rSrcTrans.x;
-            this->mMtx[1][3] = rSrcTrans.y;
-            this->mMtx[2][3] = rSrcTrans.z;
-
             f32 sXsY = sinX * sinY;
-            f32 cXcZ = cosX * cosZ;
             f32 cXsZ = cosX * sinZ;
+            f32 cXcZ = cosX * cosZ;
 
             this->mMtx[0][0] = cosY * cosZ;
             this->mMtx[1][0] = cosY * sinZ;
@@ -938,6 +938,11 @@ namespace JGeometry {
             this->mMtx[0][2] = cXcZ * sinY + sinX * sinZ;
             this->mMtx[1][2] = cXsZ * sinY - sinX * cosZ;
             this->mMtx[2][2] = cosX * cosY;
+
+            const TVec3f* pTrans = &rSrcTrans;
+            this->mMtx[0][3] = pTrans->x;
+            this->mMtx[1][3] = pTrans->y;
+            this->mMtx[2][3] = pTrans->z;
         }
 
         f32 get(int x, int y) const {
@@ -1141,7 +1146,6 @@ namespace JGeometry {
         void makePerspective(f32 fov, f32 aspect, f32 near, f32 far) {
             f32 power = ::tan(((2.0f * JGeometry::TUtil< f32 >::PI()) * fov) / (360.0f * 2.0f));
             f32 focalLen = 1.0f / power;
-            f32 scale = 1.0f / (far - near);
 
             this->mMtx[0][0] = focalLen / aspect;
             this->mMtx[0][1] = 0.0f;
@@ -1152,6 +1156,8 @@ namespace JGeometry {
             this->mMtx[1][1] = focalLen;
             this->mMtx[1][2] = 0.0f;
             this->mMtx[1][3] = 0.0f;
+
+            f32 scale = 1.0f / (far - near);
 
             this->mMtx[2][0] = 0.0f;
             this->mMtx[2][1] = 0.0f;

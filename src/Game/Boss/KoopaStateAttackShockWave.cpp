@@ -29,6 +29,12 @@ namespace NrvKoopaStateAttackShockWave {
     NEW_NERVE(KoopaStateAttackShockWaveNrvLand, KoopaStateAttackShockWave, Land);
 };  // namespace NrvKoopaStateAttackShockWave
 
+void KoopaStateAttackShockWave_FORCE_MATCH_SDATA2() {
+    (void) 0.0f;
+    (void) 3.0f;
+    (void) 2.0f;
+}
+
 KoopaStateAttackShockWave::KoopaStateAttackShockWave(Koopa* pKoopa)
     : ActorStateBase< Koopa >("State[衝撃波攻撃]", pKoopa), mMaxAttacks(1), mAttacks(), mJumpVelocity(::sJumpSpeed), mGravity(::sJumpGravity),
       mJumpDelay(::sLandStep) {
@@ -72,12 +78,12 @@ void KoopaStateAttackShockWave::appear() {
             mMaxAttacks = 3;
 
             if (KoopaFunction::isKoopaAngry(mHost)) {
-                mJumpVelocity = ::sJumpSpeed;
-                mGravity = ::sJumpGravity;
-                mJumpDelay = ::sLandStepVs3Angry;
-            } else {
                 mJumpVelocity = ::sJumpSpeedVs3;
                 mGravity = ::sJumpGravityVs3;
+                mJumpDelay = ::sLandStepVs3Angry;
+            } else {
+                mJumpVelocity = ::sJumpSpeed;
+                mGravity = ::sJumpGravity;
                 mJumpDelay = ::sLandStepVs2;
             }
         } else {

@@ -23,6 +23,11 @@
 #include <cstdio>
 
 namespace {
+    enum {
+        EVENT_BUTLER_REPORT_FORTRESS = 5,
+        EVENT_BUTLER_REPORT_KOOPA_FORTRESS = 6,
+    };
+
     const StorySequenceExecutorType::DemoSequenceInfo cDemoPowerStarResultAstroDome[] = {
         {
             0,
@@ -824,6 +829,8 @@ void StorySequenceExecutor::exeStaffRollSequence() {
     setNerve(GET_NERVE_ANON(StorySequenceExecutorPlayDemoSequence));
 }
 
+#pragma push
+#pragma opt_rebuildlogicals off
 void StorySequenceExecutor::decideNextEventForClearGalaxy(GalaxyMoveArgument* pMoveArgument) {
     pMoveArgument->mStageName = nullptr;
     pMoveArgument->mScenarioNo = -1;
@@ -955,6 +962,7 @@ void StorySequenceExecutor::decideNextEventForClearGalaxy(GalaxyMoveArgument* pM
         setNerve(GET_NERVE_ANON(StorySequenceExecutorWaitToSceneStart));
     }
 }
+#pragma pop
 
 void StorySequenceExecutor::decideNextEventForMoveGalaxy(GalaxyMoveArgument* pMoveArgument) {
     if (pMoveArgument->isEqualStage("AstroDome")) {
@@ -1108,12 +1116,8 @@ void StorySequenceExecutor::prepareDemoSequence(
 
 void StorySequenceExecutor::prepareDemoSequenceButlerFortressDiscover(const GalaxyMoveArgument* pMoveArgument,
                                                                       const DemoFortressDiscoverCheckList& rCheckList) {
-    u16 event = 5;
-    if (rCheckList._8) {
-        event = 6;
-    }
-
-    const StorySequenceExecutorType::DemoSequenceInfo* pDemoInfo = addDynamicDemoSequenceInfo(0, event, "バトラー報告");
+    const StorySequenceExecutorType::DemoSequenceInfo* pDemoInfo =
+        addDynamicDemoSequenceInfo(0, rCheckList._8 ? ::EVENT_BUTLER_REPORT_KOOPA_FORTRESS : ::EVENT_BUTLER_REPORT_FORTRESS, "バトラー報告");
 
     addDynamicDemoSequenceInfo(7, 0, rCheckList.mStoryEventName);
 

@@ -1,11 +1,12 @@
 Petari
-[![Build Status]][actions] ![Progress] [![Discord Badge]][discord]
+[![Build Status]][actions] ![Progress] ![Linking] [![Discord Badge]][discord]
 =============
 
 [Build Status]: https://github.com/SMGCommunity/Petari/actions/workflows/build.yml/badge.svg
 [actions]: https://github.com/SMGCommunity/Petari/actions/workflows/build.yml
 
 [Progress]: https://decomp.dev/SMGCommunity/Petari.svg?mode=shield&measure=code&label=Code
+[Linking]: https://decomp.dev/SMGCommunity/Petari.svg?mode=shield&measure=data&label=Data
 
 [Discord Badge]: https://img.shields.io/discord/727908905392275526?color=%237289DA&logo=discord&logoColor=%23FFFFFF
 [discord]: https://discord.gg/ZxEqyYeZbf
@@ -19,7 +20,16 @@ A work-in-progress decompilation of Super Mario Galaxy 1.
 
 This repository does **not** contain any game assets or assembly whatsoever. An existing copy of the game is required.
 
-This project is **not** meant to be an effort to create a PC Port. Please do not ask for any information on a PC port on this repository or in the Discord server.
+This project is **not** meant to be an effort to create a PC Port. Join the the Discord server to learn more and ask about our work-in-progress PC port "AstroCore".
+
+## Regarding AI usage
+A lot of dicussion and accusations have been made claiming we used AI/LLMs to accelerate the decompilation process. **We did not**.
+
+Although AI was allowed for tasks that did not directly affect progress, such as variable naming, code cleanup, and documentation, **it never ended up playing a role in this project**. The fast progress acceleration of the project was a result of **new collaborators**, a ton of **motivation**, and **great community efforts**. It was not a result of AI usage or any other kind of automated decompilation work.
+
+If you don't trust this statement enough, read the source code yourself and form your own conclusions.
+
+Below are our AI usage guidelines:
 
 > [!NOTE]
 > AI may be used for code cleanup, formatting, documentation, and naming assistance. AI-generated decompilation work is not allowed. Pull requests containing obvious AI-generated decompilation output or other AI slop will be rejected. Contributors should be able to explain and justify any decompilation work they submit. This also applies to all tool-generated code. We want to keep this project as human as possible.
@@ -45,7 +55,7 @@ When running under WSL, [objdiff](#diffing) is unable to get filesystem notifica
 macOS
 ------
 
-- Install [ninja](https://github.com/ninja-build/ninja/wiki/Pre-built-Ninja-packages):
+- Install [ninja](https://github.com/ninja-build/ninja/releases):
 
   ```sh
   brew install ninja
@@ -56,7 +66,7 @@ macOS
 Linux
 ------
 
-- Install [ninja](https://github.com/ninja-build/ninja/wiki/Pre-built-Ninja-packages).
+- Install [ninja](https://github.com/ninja-build/ninja/releases).
 
 [wibo](https://github.com/decompals/wibo), a minimal 32-bit Windows binary wrapper, will be automatically downloaded and used.
 
@@ -69,7 +79,7 @@ Building
   git clone https://github.com/SMGCommunity/Petari.git
   ```
 
-- Using [Dolphin Emulator](https://dolphin-emu.org/), extract your game to `orig/GAMEID`.
+- Using [Dolphin Emulator](https://dolphin-emu.org/), extract your game to `orig/RMGK01`.
 ![](assets/dolphin-extract.png)
   - To save space, the only necessary files are the following. Any others can be deleted.
     - `sys/main.dol`
@@ -79,7 +89,7 @@ Building
   python configure.py
   ```
 
-  To use a version other than `GAMEID` (USA), specify it with `--version`.
+  To use a version other than `RMGK01` (Korea), specify it with `--version`.
 - Build:
 
   ```sh
@@ -99,4 +109,4 @@ Select an object from the left sidebar to begin diffing. Changes to the project 
 
 Credits
 =======
-Big thanks to the [doldecomp team](https://github.com/doldecomp/sdk_2009-12-11) for their efforts on bte, [tp](https://github.com/zeldaret/tp) for JSystem, and [ogws](https://github.com/doldecomp/ogws/tree/master), where this repository has sourced code and headers from.
+Big thanks to the [doldecomp team](https://github.com/doldecomp) for their efforts on bte, [tp](https://github.com/zeldaret/tp) for JSystem, and [ogws](https://github.com/doldecomp/ogws/tree/master), where this repository has sourced code and headers from.

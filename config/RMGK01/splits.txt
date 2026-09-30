@@ -720,14 +720,14 @@ Game/Boss/DinoPackun.cpp:
 	.text       start:0x800433F4 end:0x80045064
 	.ctors      start:0x8052E888 end:0x8052E88C
 	.rodata     start:0x80530F18 end:0x80530F60
-	.data       start:0x80568960 end:0x80568C68
+	.data       start:0x80568960 end:0x80568BF8
 	.bss        start:0x8060A5F8 end:0x8060A660
 	.sdata      start:0x806B16C0 end:0x806B16D0
 	.sdata2     start:0x806B83D8 end:0x806B8450
 
 Game/Boss/DinoPackunAction.cpp:
 	.text       start:0x80045064 end:0x800457FC
-	.data       start:0x80568C68 end:0x80568CC8
+	.data       start:0x80568BF8 end:0x80568CC8
 	.sdata2     start:0x806B8450 end:0x806B8460
 
 Game/Boss/DinoPackunBall.cpp:
@@ -833,13 +833,13 @@ Game/Boss/DinoPackunTail.cpp:
 
 Game/Boss/DinoPackunTailNode.cpp:
 	.text       start:0x8004CBEC end:0x8004D204
-	.data       start:0x80569DA0 end:0x80569E40
+	.data       start:0x80569DA0 end:0x80569E38
 	.sdata2     start:0x806B8600 end:0x806B8630
 
 Game/Boss/DinoPackunTailPart.cpp:
 	.text       start:0x8004D204 end:0x8004D6E0
 	.ctors      start:0x8052E8C0 end:0x8052E8C4
-	.data       start:0x80569E40 end:0x80569F08
+	.data       start:0x80569E38 end:0x80569F08
 	.sbss       start:0x806B3228 end:0x806B3230
 	.sdata2     start:0x806B8630 end:0x806B8650
 
@@ -870,7 +870,7 @@ Game/Boss/DinoPackunVs2.cpp:
 Game/Boss/Dodoryu.cpp:
 	.text       start:0x8004ED54 end:0x80051C54
 	.ctors      start:0x8052E8D0 end:0x8052E8D4
-	.rodata     start:0x80530F60 end:0x80530FC8
+	.rodata     start:0x80530F60 end:0x80530FA8
 	.data       start:0x8056A2B8 end:0x8056ADD8
 	.sdata      start:0x806B16E0 end:0x806B1720
 	.sbss       start:0x806B3288 end:0x806B32B0
@@ -908,6 +908,7 @@ Game/Boss/DodoryuStateLv1.cpp:
 Game/Boss/DodoryuStateLv2.cpp:
 	.text       start:0x800550D8 end:0x80057E04
 	.ctors      start:0x8052E8DC end:0x8052E8E0
+	.rodata     start:0x80530FA8 end:0x80530FB0
 	.data       start:0x8056B828 end:0x8056BD00
 	.sbss       start:0x806B3310 end:0x806B3368
 	.sdata2     start:0x806B8750 end:0x806B8798
@@ -948,6 +949,7 @@ Game/Boss/KoopaBattleStairsBase.cpp:
 Game/Boss/KoopaBattleStairsVs1.cpp:
 	.text       start:0x8005A450 end:0x8005B120
 	.ctors      start:0x8052E8E8 end:0x8052E8EC
+	.rodata     start:0x80530FB0 end:0x80530FB8
 	.data       start:0x8056C138 end:0x8056C2B8
 	.sdata      start:0x806B1730 end:0x806B1740
 	.sbss       start:0x806B33A8 end:0x806B33C8
@@ -1013,6 +1015,7 @@ Game/Boss/KoopaFireShort.cpp:
 Game/Boss/KoopaFireStairs.cpp:
 	.text       start:0x8005E874 end:0x8005F0F8
 	.ctors      start:0x8052E90C end:0x8052E910
+	.rodata     start:0x80530FB8 end:0x80530FC8
 	.data       start:0x8056CE28 end:0x8056CF70
 	.sdata      start:0x806B1748 end:0x806B1750
 	.sbss       start:0x806B3468 end:0x806B3470
@@ -1184,12 +1187,13 @@ Game/Boss/OtaKingLongFoot.cpp:
 Game/Boss/OtaKingMagma.cpp:
 	.text       start:0x8006DD98 end:0x8006E654
 	.ctors      start:0x8052E954 end:0x8052E958
-	.rodata     start:0x80531078 end:0x80531098
+	.rodata     start:0x80531078 end:0x80531088
 	.data       start:0x8056F4C8 end:0x8056F6B8
 	.sbss       start:0x806B3650 end:0x806B3670
 
 Game/Boss/Polta.cpp:
 	.text       start:0x8006E654 end:0x8006F3F4
+	.rodata     start:0x80531088 end:0x80531090
 	.data       start:0x8056F6B8 end:0x8056F8A8
 	.sdata2     start:0x806B8B40 end:0x806B8B68
 
@@ -1207,6 +1211,7 @@ Game/Boss/PoltaActionSequencer.cpp:
 Game/Boss/PoltaArm.cpp:
 	.text       start:0x8006FE6C end:0x80070AB0
 	.ctors      start:0x8052E95C end:0x8052E960
+	.rodata     start:0x80531090 end:0x80531098
 	.data       start:0x8056FA78 end:0x8056FC70
 	.sbss       start:0x806B3688 end:0x806B36A8
 	.sdata2     start:0x806B8B70 end:0x806B8B80
@@ -2597,6 +2602,7 @@ Game/Enemy/Birikyu.cpp:
 	.ctors      start:0x8052EA50 end:0x8052EA54
 	.rodata     start:0x80531DC0 end:0x80531DC8
 	.data       start:0x8057A670 end:0x8057A808
+	.sdata      start:0x806B18D8 end:0x806B18E0
 	.sbss       start:0x806B3CB8 end:0x806B3CD0
 	.sdata2     start:0x806BA0E8 end:0x806BA118
 
@@ -2655,6 +2661,7 @@ Game/Enemy/CocoSambo.cpp:
 	.ctors      start:0x8052EA6C end:0x8052EA70
 	.rodata     start:0x80531E50 end:0x80531E88
 	.data       start:0x8057B500 end:0x8057B930
+	.sdata      start:0x806B18F8 end:0x806B1900
 	.sbss       start:0x806B3DB8 end:0x806B3E08
 	.sdata2     start:0x806BA338 end:0x806BA380
 
@@ -2893,7 +2900,7 @@ Game/Enemy/KarikariDirector.cpp:
 Game/Enemy/Karon.cpp:
 	.text       start:0x8010E608 end:0x80110298
 	.ctors      start:0x8052EAD4 end:0x8052EAD8
-	.rodata     start:0x80532178 end:0x805321E8
+	.rodata     start:0x80532178 end:0x805321F0
 	.data       start:0x8057F920 end:0x8057FBB8
 	.sbss       start:0x806B4260 end:0x806B42A0
 	.sdata2     start:0x806BAB88 end:0x806BABE0
@@ -2908,13 +2915,14 @@ Game/Enemy/Kiraira.cpp:
 
 Game/Enemy/KirairaChain.cpp:
 	.text       start:0x80111470 end:0x801123BC
+	.rodata     start:0x805321F0 end:0x805321F8
 	.data       start:0x8057FDA8 end:0x8057FEA8
 	.sdata2     start:0x806BAC38 end:0x806BAC70
 
 Game/Enemy/KoopaJrShip.cpp:
 	.text       start:0x801123BC end:0x8011479C
 	.ctors      start:0x8052EADC end:0x8052EAE0
-	.rodata     start:0x805321E8 end:0x80532298
+	.rodata     start:0x805321F8 end:0x80532298
 	.data       start:0x8057FEA8 end:0x805803F8
 	.sdata      start:0x806B19B8 end:0x806B19D0
 	.sbss       start:0x806B42C0 end:0x806B42F8
@@ -2985,6 +2993,7 @@ Game/Enemy/MechanicKoopaMini.cpp:
 Game/Enemy/Meramera.cpp:
 	.text       start:0x8011EA28 end:0x80122D94
 	.ctors      start:0x8052EAFC end:0x8052EB00
+	.rodata     start:0x80532380 end:0x80532388
 	.data       start:0x80581480 end:0x80581950
 	.bss        start:0x8060A9F0 end:0x8060AA00
 	.sdata      start:0x806B1A10 end:0x806B1A18
@@ -2994,7 +3003,7 @@ Game/Enemy/Meramera.cpp:
 Game/Enemy/Metbo.cpp:
 	.text       start:0x80122D94 end:0x80124C6C
 	.ctors      start:0x8052EB00 end:0x8052EB04
-	.rodata     start:0x80532380 end:0x805323E8
+	.rodata     start:0x80532388 end:0x805323E8
 	.data       start:0x80581950 end:0x80581C30
 	.sdata      start:0x806B1A18 end:0x806B1A20
 	.sbss       start:0x806B4478 end:0x806B44C0
@@ -3089,6 +3098,7 @@ Game/Enemy/PackunPetit.cpp:
 	.ctors      start:0x8052EB24 end:0x8052EB28
 	.rodata     start:0x80532470 end:0x80532478
 	.data       start:0x80582FC8 end:0x80583270
+	.sdata      start:0x806B1A40 end:0x806B1A48
 	.sbss       start:0x806B45F8 end:0x806B4640
 	.sdata2     start:0x806BB278 end:0x806BB2B8
 
@@ -3658,11 +3668,11 @@ Game/LiveActor/ShadowSurfaceCircle.cpp:
 
 Game/LiveActor/ShadowSurfaceDrawer.cpp:
 	.text       start:0x8016D51C end:0x8016D704
-	.data       start:0x805882E0 end:0x80588350
+	.data       start:0x805882E0 end:0x80588328
 
 Game/LiveActor/ShadowSurfaceOval.cpp:
 	.text       start:0x8016D704 end:0x8016DA28
-	.data       start:0x80588350 end:0x80588378
+	.data       start:0x80588328 end:0x80588378
 	.sdata2     start:0x806BBD28 end:0x806BBD38
 
 Game/LiveActor/ShadowVolumeBox.cpp:
@@ -9712,7 +9722,7 @@ Game/Util/TriggerChecker.cpp:
 
 Game/Util/ValueControl.cpp:
 	.text       start:0x80408364 end:0x80408558
-	.rodata     start:0x8053F5D0 end:0x8053F5E0
+	.rodata     start:0x8053F5D0 end:0x8053F5D8
 
 Game/NWC24/NWC24Function.cpp:
 	.text       start:0x80408558 end:0x804087A4
@@ -10311,13 +10321,14 @@ RVLFaceLib/RFL_NANDLoader.c:
 	.text       start:0x80458878 end:0x804598A4
 	.rodata     start:0x8055C4D8 end:0x8055C568
 	.data       start:0x805EA7A8 end:0x805EA7C8
-	.sdata      start:0x806B2810 end:0x806B2820
+	.sdata      start:0x806B2810 end:0x806B2818
 
 RVLFaceLib/RFL_NANDAccess.c:
 	extab       start:0x80006580 end:0x800065F8
 	extabindex  start:0x80006A90 end:0x80006B44
 	.text       start:0x804598A4 end:0x8045B458
-	.data       start:0x805EA7C8 end:0x805EA820
+	.data       start:0x805EA7C8 end:0x805EA810
+	.sdata      start:0x806B2818 end:0x806B2820
 	.sdata2     start:0x806C1D30 end:0x806C1D38
 	.sbss2      start:0x806C2918 end:0x806C2920
 
@@ -10326,20 +10337,21 @@ RVLFaceLib/RFL_Model.c:
 	extabindex  start:0x80006B44 end:0x80006BE0
 	.text       start:0x8045B458 end:0x8045D400
 	.rodata     start:0x8055C568 end:0x8055C678
+	.data       start:0x805EA810 end:0x805EA820
 	.sdata2     start:0x806C1D38 end:0x806C1D78
 
 RVLFaceLib/RFL_MakeTex.c:
 	extab       start:0x80006660 end:0x800066A0
 	extabindex  start:0x80006BE0 end:0x80006C40
 	.text       start:0x8045D400 end:0x8045FCC0
-	.rodata     start:0x8055C678 end:0x8055C748
+	.rodata     start:0x8055C678 end:0x8055C738
 	.sdata2     start:0x806C1D78 end:0x806C1E38
 
 RVLFaceLib/RFL_Icon.c:
 	extab       start:0x800066A0 end:0x800066B8
 	extabindex  start:0x80006C40 end:0x80006C64
 	.text       start:0x8045FCC0 end:0x804602A4
-	.rodata     start:0x8055C748 end:0x8055C778
+	.rodata     start:0x8055C738 end:0x8055C778
 	.sdata2     start:0x806C1E38 end:0x806C1E78
 
 RVLFaceLib/RFL_HiddenDatabase.c:
