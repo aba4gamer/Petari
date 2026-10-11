@@ -11,11 +11,6 @@
 #include "Game/Util/PlayerUtil.hpp"
 #include <cstdio>
 
-void WarpCube_FORCE_MATCH_SDATA2() {
-    (void)1.0f;
-    (void)0.0f;
-}
-
 WarpCube::~WarpCube() {
 }
 
@@ -51,7 +46,7 @@ void WarpCubeMgr::setInvalidateTimer(AreaObj* pAreaObj, u16 a2) {
 void WarpCubeMgr::startEventCamera(const AreaObj* pAreaObj) {
     const WarpCube* pWarpCube = static_cast< const WarpCube* >(pAreaObj);
 
-    MR::startEventCameraNoTarget(pWarpCube->mCameraInfo, pWarpCube->mEventName, -1);
+    MR::startEventCameraNoTarget(pWarpCube->mCameraInfo, pWarpCube->mEventName);
 
     mWarpCube = pWarpCube;
 }
@@ -61,7 +56,7 @@ void WarpCubeMgr::endEventCamera() {
         return;
     }
 
-    MR::endEventCamera(mWarpCube->mCameraInfo, mWarpCube->mEventName, true, -1);
+    MR::endEventCamera(mWarpCube->mCameraInfo, mWarpCube->mEventName, true);
     mWarpCube = nullptr;
 }
 

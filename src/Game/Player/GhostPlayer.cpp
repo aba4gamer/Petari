@@ -37,11 +37,6 @@
 #include "Game/Util/StringUtil.hpp"
 #include <cstdio>
 
-void GhostPlayer_FORCE_MATCH_SDATA2() {
-    (void)1.0f;
-    (void)0.0f;
-}
-
 namespace {
     struct AnimSoundInfo {
         /* 0x00 */ const char* pAnimName;
@@ -296,7 +291,7 @@ void GhostPlayer::exePreStartDemo0() {
         TPos3f* cameraTargetMatrix = &mCameraTargetMtx->mMatrix;
         cameraTargetMatrix->set(getBaseMtx());
 
-        MR::startMultiActorCameraTargetOther(this, mCameraInfo, "レース開始1", CameraTargetArg(mCameraTargetMtx), -1);
+        MR::startMultiActorCameraTargetOther(this, mCameraInfo, "レース開始1", CameraTargetArg(mCameraTargetMtx));
         warpPosition("ゴーストデモゴースト位置");
     }
 
@@ -329,15 +324,15 @@ void GhostPlayer::exePreStartDemo0() {
         MR::startSound(this, "SE_BV_GHOST_MARIO_PROVOKE");
     }
     if (getNerveStep() == 240) {
-        MR::endMultiActorCamera(this, mCameraInfo, "レース開始1", false, -1);
+        MR::endMultiActorCamera(this, mCameraInfo, "レース開始1", false);
         TPos3f* cameraTargetMatrix = &mCameraTargetMtx->mMatrix;
         cameraTargetMatrix->set(getBaseMtx());
-        MR::startMultiActorCameraTargetOther(this, mCameraInfo, "レース開始2", CameraTargetArg(mCameraTargetMtx), -1);
+        MR::startMultiActorCameraTargetOther(this, mCameraInfo, "レース開始2", CameraTargetArg(mCameraTargetMtx));
         setNerve(GET_NERVE(GhostPlayer, HostTypeNrvPreStartDemo1));
         setAnimation("レース見る");
     } else if (isRequestSkipDemo()) {
-        MR::endMultiActorCamera(this, mCameraInfo, "レース開始1", false, -1);
-        MR::startMultiActorCameraTargetSelf(this, mCameraInfo, "レース開始3", -1);
+        MR::endMultiActorCamera(this, mCameraInfo, "レース開始1", false);
+        MR::startMultiActorCameraTargetSelf(this, mCameraInfo, "レース開始3");
         setNerve(GET_NERVE(GhostPlayer, HostTypeNrvPreStartDemo2));
         if (getNerveStep() < 60) {
             mIsHidden = false;
@@ -356,12 +351,12 @@ bool GhostPlayer::isRequestSkipDemo() const {
 
 void GhostPlayer::exePreStartDemo1() {
     if (getNerveStep() == 240) {
-        MR::endMultiActorCamera(this, mCameraInfo, "レース開始2", false, -1);
-        MR::startMultiActorCameraTargetSelf(this, mCameraInfo, "レース開始3", -1);
+        MR::endMultiActorCamera(this, mCameraInfo, "レース開始2", false);
+        MR::startMultiActorCameraTargetSelf(this, mCameraInfo, "レース開始3");
         setNerve(GET_NERVE(GhostPlayer, HostTypeNrvPreStartDemo2));
     } else if (isRequestSkipDemo()) {
-        MR::endMultiActorCamera(this, mCameraInfo, "レース開始2", false, -1);
-        MR::startMultiActorCameraTargetSelf(this, mCameraInfo, "レース開始3", -1);
+        MR::endMultiActorCamera(this, mCameraInfo, "レース開始2", false);
+        MR::startMultiActorCameraTargetSelf(this, mCameraInfo, "レース開始3");
         setNerve(GET_NERVE(GhostPlayer, HostTypeNrvPreStartDemo2));
     }
 }
@@ -386,7 +381,7 @@ void GhostPlayer::exePreStartDemo2() {
 
     if (MR::getPlayerTriggerZ()) {
         MR::startBckPlayerJ("レースクラウチング開始");
-        MR::startSoundPlayer("SE_PV_SQUAT", -1);
+        MR::startSoundPlayer("SE_PV_SQUAT");
     } else if (MR::testSubPadReleaseZ(WPAD_CHAN0)) {
         MR::startBckPlayerJ("レース開始");
     }
@@ -419,7 +414,7 @@ void GhostPlayer::exePreStartDemo2() {
         MR::noticePlayerDashChance();
         MR::startBckPlayerJ("基本");
         MR::startSystemSE("SE_SY_RACE_START");
-        MR::endMultiActorCamera(this, mCameraInfo, "レース開始3", false, -1);
+        MR::endMultiActorCamera(this, mCameraInfo, "レース開始3", false);
     }
 }
 
@@ -437,7 +432,7 @@ void GhostPlayer::exeWinDemo() {
         MR::setPlayerBaseMtx(playerPosMtx);
 
         MR::startBckPlayerJ("レース見る");
-        MR::startMultiActorCameraTargetSelf(this, mCameraInfo, "レース終了", -1);
+        MR::startMultiActorCameraTargetSelf(this, mCameraInfo, "レース終了");
         mIsDemoCameraActive = true;
 
         HitSensor* sensorBody = getSensor("body");
@@ -470,7 +465,7 @@ void GhostPlayer::exeWinDemo() {
 
     if (MR::isStep(this, 180)) {
         if (mIsDemoCameraActive) {
-            MR::endMultiActorCamera(this, mCameraInfo, "レース終了", true, -1);
+            MR::endMultiActorCamera(this, mCameraInfo, "レース終了", true);
             mIsDemoCameraActive = false;
         }
         MR::endDemo(this, "レース終了");
@@ -627,7 +622,7 @@ u32 GhostPlayer::receiveGhostPacket(GhostPacket* pPacket) {
 
     if (++frameIndex != nextFrameIndex) {
         if (mIsDemoCameraActive && MR::isBckOneTimeAndStopped(this)) {
-            MR::endActorCamera(this, mCameraInfo, false, -1);
+            MR::endActorCamera(this, mCameraInfo, false);
             mIsDemoCameraActive = false;
         }
         return false;

@@ -25,9 +25,6 @@ namespace NrvGravityLightRoad {
 };  // namespace NrvGravityLightRoad
 
 void GravityLightRoad_FORCE_MATCH_SDATA2() {
-    (void)0.0f;
-    (void)0.5f;
-    (void)2.0f;
     (void)2500.0f;
     (void)250.0f;
     (void)20.0f;
@@ -84,7 +81,7 @@ void GravityLightRoad::exeWait() {
 void GravityLightRoad::exeDraw() {
     if (MR::isFirstStep(this)) {
         mSpeed = 0.0f;
-        MR::startSoundPlayer("SE_PM_GRAV_LIGHT_DRAWN_ST", -1);
+        MR::startSoundPlayer("SE_PM_GRAV_LIGHT_DRAWN_ST");
     }
 
     TVec3f upVec;

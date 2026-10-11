@@ -21,12 +21,6 @@
 #include <JSystem/JUtility/JUTTexture.hpp>
 #include <revolution/wpad.h>
 
-void StarPointerLayout_FORCE_MATCH_SDATA2() {
-    (void)1.0f;
-    (void)0.0f;
-    (void)2.0f;
-}
-
 namespace {
     // TODO: names
     static GXColor sColorA[] = {
@@ -44,9 +38,9 @@ namespace {
     };
 
     static const s32 sTouchCount = 1;
-    static const vf32 sNormalRadius = 15.0f;
-    static const vf32 sHoldRadius = 45.0f;
-    static const vf32 sHandRadius = 20.0f;
+    static const f32 sNormalRadius = 15;
+    static const f32 sHoldRadius = 45;
+    static const f32 sHandRadius = 20;
 
     // static const _32 sStepRadian =
     static const s32 hGripTime = 20;
@@ -80,10 +74,13 @@ namespace NrvStarPointerLayout {
 };  // namespace NrvStarPointerLayout
 
 StarPointerLayout::StarPointerLayout(const char* pName)
-    : LayoutActor(pName, true), mPosition(0.0f, 0.0f), mPointerKind(StarPointerKind_NULL), mAnimType(AnimType_HandPaa), mTouchTimer(0),
-      mPadChannel(-1), mRadius(::sNormalRadius), _3C(0.0f), mRotateAngle(0.0f), mDirector(nullptr), mBlur(nullptr), mCommandStream(nullptr),
-      mNumber(nullptr), mActor(nullptr), mNewTouchedID(0), mTouchedID(0), mStartTouch(false), mStartDisableShoot(false), mSingleTouch(false),
-      mShootDisabled(false), mIsPointerValid(true), mIsAppear(true), mAppearTime(0) {
+    : LayoutActor(pName, true), mPosition(0.0f, 0.0f), mPointerKind(StarPointerKind_NULL), mAnimType(AnimType_HandPaa), mTouchTimer(),
+      mPadChannel(-1), mRadius(::sNormalRadius), _3C(),
+#if (VERSION == RMGK01)
+      mRotateAngle(),
+#endif
+      mDirector(), mBlur(), mCommandStream(), mNumber(), mActor(), mNewTouchedID(), mTouchedID(), mStartTouch(), mStartDisableShoot(), mSingleTouch(),
+      mShootDisabled(), mIsPointerValid(true), mIsAppear(true), mAppearTime() {
 }
 
 void StarPointerLayout::initWithPort(s32 channel) {
@@ -588,6 +585,9 @@ void StarPointerLayout::control() {
     }
 
     updateDecoration();
+#if (VERSION == RMGJ01 || VERSION == RMGE01 || VERSION == RMGP01)
+    rotateTest();
+#endif
     updateTouch();
 
     mShootDisabled = mStartDisableShoot;
@@ -627,16 +627,29 @@ void StarPointerLayout::control() {
                     startAnimHandPaa();
                 }
                 setNerve(GET_NERVE(StarPointerLayout, HostTypeNrvOutScreen));
+
+#if (VERSION == RMGJ01 || VERSION == RMGE01 || VERSION == RMGP01)
+                MR::tryRumblePadWeak(this, mPadChannel);
+#else
                 rotateTest();
                 return;
+#endif
             }
+            
+#if (VERSION == RMGJ01 || VERSION == RMGE01 || VERSION == RMGP01)
+            return;
+#endif
         } else {
+#if (VERSION == RMGK01)
             rotateTest();
+#endif
             return;
         }
     }
 
+#if (VERSION == RMGK01)
     rotateTest();
+#endif
 
     if (mPadChannel == WPAD_CHAN1) {
         MR::startAnim(this, "Transparency", 1);
@@ -661,6 +674,11 @@ void StarPointerLayout::setPosition() {
 }
 
 void StarPointerLayout::rotateTest() {
+#if (VERSION == RMGJ01 || VERSION == RMGE01 || VERSION == RMGP01)
+    TVec2f horiz;
+    MR::getWPad(mPadChannel)->mPointer->getHorizonVec(&horiz);
+    f32 angle = MR::normalizeAbs(MR::toDegree(MR::atan2(horiz.y, horiz.x)), ::sDegreeMin, 180.0f);
+#else
     f32 angle = mRotateAngle;
     if (MR::isStarPointerInScreen(mPadChannel)) {
         TVec2f horiz;
@@ -670,6 +688,7 @@ void StarPointerLayout::rotateTest() {
             mRotateAngle = angle;
         }
     }
+#endif
 
     if (mPointerKind == StarPointerKind_StarPointer) {
         angle *= ::sRotateMult;

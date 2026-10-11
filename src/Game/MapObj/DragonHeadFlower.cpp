@@ -13,15 +13,6 @@
 #include "Game/Util/PlayerUtil.hpp"
 #include "Game/Util/RailUtil.hpp"
 
-void DragonHeadFlower_FORCE_MATCH_SDATA2() {
-    (void)1.0f;
-    (void)0.0f;
-    (void)0.5f;
-    (void)3.0f;
-    (void)-1.0f;
-    (void)2.0f;
-}
-
 namespace {
     const f32 sGravityAcc = 0.94f;
     const f32 sBreatheAccel = 3.0f;
@@ -180,7 +171,7 @@ void DragonHeadFlower::exeRailMove() {
 
         MR::emitEffect(this, "Launch");
 
-        MR::startSoundPlayer("SE_PV_JUMP_JOY", -1);
+        MR::startSoundPlayer("SE_PV_JUMP_JOY");
 
         MR::showPlayer();
         MR::showModel(mPlayerSensor->mHost);

@@ -7,12 +7,7 @@
 
 namespace {
     extern char sBurnSound[];
-}
-
-void Candlestand_FORCE_MATCH_SDATA2() {
-    (void)1.0f;
-    (void)0.0f;
-}
+};  // namespace
 
 namespace NrvCandlestand {
     NEW_NERVE(HostTypeWaitFire, Candlestand, WaitFire);
@@ -284,7 +279,7 @@ void Candlestand::exeFire() {
 
 namespace {
     char sBurnSound[] = "SE_OJ_LV_PHANTOM_TOACH_BURN";
-}
+};  // namespace
 
 void Candlestand::exeExtinguish() {
     if (MR::isFirstStep(this)) {

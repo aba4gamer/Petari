@@ -7,11 +7,6 @@
 #include "Game/Util.hpp"
 #include "Game/Util/MathUtil.hpp"
 
-void BreakableCage_FORCE_MATCH_SDATA2() {
-    (void)1.0f;
-    (void)0.0f;
-}
-
 namespace {
     const Vec cHitSensorOffsetCage = {0.0f, 0.0f, 0.0f};
     const Vec cHitSensorOffsetFixation = {0.0f, 0.0f, 0.0f};
@@ -326,7 +321,7 @@ void BreakableCage::exeBreak() {
         const ActorCameraInfo* pCamera = mCameraInfo;
 
         if (pCamera != nullptr) {
-            MR::startActorCameraTargetSelf(this, getCamInfo(), -1);
+            MR::startActorCameraTargetSelf(this, getCamInfo());
 
             if (mBreakModel != nullptr) {
                 MR::requestMovementOn(mBreakModel);
@@ -389,7 +384,7 @@ void BreakableCage::exeBreak() {
         }
 
         if (mCameraInfo != nullptr) {
-            MR::endActorCamera(this, getCamInfo(), false, -1);
+            MR::endActorCamera(this, getCamInfo(), false);
             MR::endDemo(this, "破壊");
         }
 

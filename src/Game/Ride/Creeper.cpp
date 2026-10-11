@@ -61,12 +61,6 @@ namespace {
     static Color8 sColorMinusX(0xC8, 0xC8, 0xC8, 0xFF);
 };  // namespace
 
-void Creeoer_FORCE_MATCH_SDATA2() {
-    (void)1.0f;
-    (void)0.0f;
-    (void)-1.0f;
-}
-
 CreeperPoint::CreeperPoint(const TVec3f& rPos, const TVec3f& rUp, const CreeperPoint* pPrevPoint)
     : mPosition(rPos), mNeutralPos(rPos), mVelocity(0.0f, 0.0f, 0.0f), mSide(1.0f, 0.0f, 0.0f), mUp(rUp), mFront(0.0f, 0.0f, 1.0f),
       mProjection(0.0f, 0.0f, 0.0f), mPrevPoint(pPrevPoint) {
@@ -227,7 +221,7 @@ void Creeper::exeHangDown() {
     mHangSpeed = MR::clamp(mHangSpeed, 0.0f, ::sHangDownSpeedMax);
 
     if (MR::isRailReachedNearGoal(this, ::sHangEndCoord)) {
-        MR::endMultiActorCamera(this, mCameraInfo, "掴まり", true, -1);
+        MR::endMultiActorCamera(this, mCameraInfo, "掴まり", true);
         MR::endBindAndPlayerJump(this, TVec3f(0.0f, 0.0f, 0.0f), 0);
         MR::startSound(mRider, "SE_PV_JUMP_S");
         MR::startSound(this, "SE_OJ_CREEPER_SWING");
@@ -314,7 +308,7 @@ bool Creeper::receiveOtherMsg(u32 msg, HitSensor* pSender, HitSensor* pReceiver)
 
         MR::tryRumblePadMiddle(this, WPAD_CHAN0);
 
-        MR::startMultiActorCameraNoTarget(this, mCameraInfo, "掴まり", -1);
+        MR::startMultiActorCameraNoTarget(this, mCameraInfo, "掴まり");
         return true;
     }
 
@@ -327,7 +321,7 @@ bool Creeper::receiveOtherMsg(u32 msg, HitSensor* pSender, HitSensor* pReceiver)
     }
 
     if (MR::isMsgRushCancel(msg)) {
-        MR::endMultiActorCamera(this, mCameraInfo, "掴まり", true, -1);
+        MR::endMultiActorCamera(this, mCameraInfo, "掴まり", true);
         MR::endBindAndPlayerJump(this, TVec3f(0.0f, 0.0f, 0.0f), 0);
         mRider = nullptr;
         setNerve(GET_NERVE(Creeper, CreeperNrvFreeInvalid));
@@ -406,7 +400,7 @@ bool Creeper::tryJump() {
     launch = launchFront * mJumpSpeedFront - mGravity * mJumpSpeedUp;
 
     MR::startBckPlayer("GrowPlantJump");
-    MR::endMultiActorCamera(this, mCameraInfo, "掴まり", true, -1);
+    MR::endMultiActorCamera(this, mCameraInfo, "掴まり", true);
     MR::endBindAndPlayerForceWeakGravityJump(this, launch);
 
     MR::setPlayerSwingInhibitTimer(::sStepInvalidSpin);
